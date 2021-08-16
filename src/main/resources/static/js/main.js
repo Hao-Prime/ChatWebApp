@@ -41,7 +41,7 @@ function onConnected() {
     data1.append('date',d.getHours()+":"+d.getMinutes()+" "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear());
     data1.append('brower', "web");
     var xhr1 = new XMLHttpRequest();
-    xhr1.open("POST", 'http://localhost:8080/api/save', true);
+    xhr1.open("POST", 'https://webhaohi-chatwebapp.herokuapp.com/api/save', true);
     xhr1.send(data1);
     // Tell your username to the server
 
@@ -66,7 +66,7 @@ function sendMessage(event) {
     data.append('brower', "web");
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", 'http://localhost:8080/api/save', true);
+    xhr.open("POST", 'https://webhaohi-chatwebapp.herokuapp.com/api/save', true);
     xhr.send(data);
     
     if(messageContent && stompClient) {
