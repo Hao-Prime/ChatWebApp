@@ -56,12 +56,12 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 						break;
 					}
 				}
-				for (int j = index-1; j >= 0; j--) {
+				for (int j = 0;j<index; j++) {
 					session.sendMessage(
 							new TextMessage(String.valueOf((listTN.get(j).getId()))+"/"+listTN.get(j).getUsername() + ":" + listTN.get(j).getNoidung()));
 					//System.out.println("Gửi tin"+listTN.get(j).getId());
 				}
-				tn=listTN.get(0);
+				
 				
 
 				break;
