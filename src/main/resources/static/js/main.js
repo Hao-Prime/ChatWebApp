@@ -36,7 +36,7 @@ function onConnected() {
     var data1 = new FormData();
     var d = new Date();
     data1.append('username', username);
-    data1.append('noidung',"");
+    data1.append('noidung',"đã tham gia!");
     data1.append('type', "JOIN");
     data1.append('date',d.getHours()+":"+d.getMinutes()+" "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear());
     data1.append('brower', "web");

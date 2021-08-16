@@ -46,6 +46,10 @@ public class TinNhanServiceImpl implements TinNhanService {
 		
 		return TinNhanRepository.findNew();
 	}
+	@Override
+	public List<TinNhan> findOld() {
+		return TinNhanRepository.findOld();
+	}
 }
 
 

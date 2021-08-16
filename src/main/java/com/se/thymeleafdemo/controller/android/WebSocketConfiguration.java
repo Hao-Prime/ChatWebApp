@@ -16,8 +16,11 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
 	private TinNhanService tinNhanService;
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
+    
+    
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new WebSocketHandler(tinNhanService,messagingTemplate), "/websocket");
+        registry.addHandler(new WebSocketHandler(tinNhanService,messagingTemplate,ListWebSocketSession.listWebSocketSession), "/websocket");
     }
+    
 }

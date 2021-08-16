@@ -14,9 +14,11 @@ public interface TinNhanRepository extends JpaRepository<TinNhan, Integer> {
 	@Query(value = "select * from tinnhan limit 10", nativeQuery = true)
 	List<TinNhan> findFirt();
 
-	@Query(value = "select * from tinnhan order by id DESC limit 10", nativeQuery = true)
+	@Query(value = "select * from tinnhan order by id DESC limit 6", nativeQuery = true)
 	List<TinNhan> findNew();
 
+	@Query(value = "select * from tinnhan order by id DESC limit 20", nativeQuery = true)
+	List<TinNhan> findOld();
 
 
 }
