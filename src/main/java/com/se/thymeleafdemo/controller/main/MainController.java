@@ -1,4 +1,4 @@
-package com.se.thymeleafdemo.controller;
+package com.se.thymeleafdemo.controller.main;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;

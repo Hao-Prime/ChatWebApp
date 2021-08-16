@@ -1,4 +1,4 @@
-package com.se.thymeleafdemo.controller;
+package com.se.thymeleafdemo.controller.websocket;
 
 
 import java.util.Map;
@@ -19,6 +19,7 @@ public class HttpHandshakeInterceptor implements HandshakeInterceptor {
 
    private static final Logger logger = LoggerFactory.getLogger(HttpHandshakeInterceptor.class);
     
+   //chạy 2 hàm này đầu tiên
    @Override
    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
            Map<String, Object> attributes) throws Exception {
@@ -29,6 +30,8 @@ public class HttpHandshakeInterceptor implements HandshakeInterceptor {
            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
            HttpSession session = servletRequest.getServletRequest().getSession();
            attributes.put("sessionId", session.getId());
+           //
+           //System.out.println("+++beforeHandshake \n---------request "+request+"\n -----------session"+session.toString());
        }
        return true;
    }

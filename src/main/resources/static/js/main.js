@@ -29,12 +29,22 @@ function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/publicChatRoom', onMessageReceived);
  
-    // Tell your username to the server
     stompClient.send("/app/chat.addUser",
         {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+        JSON.stringify({username: username, type: 'JOIN'})
     )
- 
+    var data1 = new FormData();
+    var d = new Date();
+    data1.append('username', username);
+    data1.append('noidung',"");
+    data1.append('type', "JOIN");
+    data1.append('date',d.getHours()+":"+d.getMinutes()+" "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear());
+    data1.append('brower', "web");
+    var xhr1 = new XMLHttpRequest();
+    xhr1.open("POST", 'http://localhost:8080/api/save', true);
+    xhr1.send(data1);
+    // Tell your username to the server
+
     connectingElement.classList.add('hidden');
 }
  
@@ -47,42 +57,62 @@ function onError(error) {
  
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
+    var d = new Date();
+    var data = new FormData();
+    data.append('username', username);
+    data.append('noidung', messageInput.value);
+    data.append('type', "CHAT");
+    data.append('date',d.getHours()+":"+d.getMinutes()+" "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear());
+    data.append('brower', "web");
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", 'http://localhost:8080/api/save', true);
+    xhr.send(data);
+    
     if(messageContent && stompClient) {
-        var chatMessage = {
-            sender: username,
-            content: messageInput.value,
-            type: 'CHAT'
+        var d = new Date();
+        var tinNhan = {
+            id:0,
+            username: username,
+            noidung: messageInput.value,
+            type: 'CHAT',
+            date: d.getHours()+":"+d.getMinutes()+" "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear(),
+            brower: 'web'
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(tinNhan));
         messageInput.value = '';
     }
     event.preventDefault();
+
+
 }
  
  
 function onMessageReceived(payload) {
-    var message = JSON.parse(payload.body);
+    var tinNhan = JSON.parse(payload.body);
  
     var messageElement = document.createElement('li');
  
-    if(message.type === 'JOIN') {
+    if(tinNhan.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
-    } else if (message.type === 'LEAVE') {
+        tinNhan.noidung = tinNhan.username + ' đã tham gia!';
+    } else if (tinNhan.type === 'LEFT') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
+        tinNhan.noidung = tinNhan.username + ' đã rời khỏi!';
     } else {
         messageElement.classList.add('chat-message');   
         var usernameElement = document.createElement('strong');
         usernameElement.classList.add('nickname');
-        var usernameText = document.createTextNode(message.sender);
-        var usernameText = document.createTextNode(message.sender);
+        
+        var usernameText = document.createTextNode(tinNhan.username+": ");
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
     }
- 
+
+
+
     var textElement = document.createElement('span');
-    var messageText = document.createTextNode(message.content);
+    var messageText = document.createTextNode(tinNhan.noidung);
     textElement.appendChild(messageText);
  
     messageElement.appendChild(textElement);

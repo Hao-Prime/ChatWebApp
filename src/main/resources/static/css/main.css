@@ -14,7 +14,8 @@ html, body {
 }
  
 .nickname  {
-    color:blue;margin-right:20px;
+    color:rgb(23, 23, 73);max-width:45px;width: 45px;
+
 }
 .hidden {
     display: none;
@@ -74,17 +75,17 @@ html, body {
     margin: 0;
     overflow: auto;
     overflow-y: scroll;
-    padding: 0 20px 0px 20px;
+    padding: 0 10px 0px 10px;
     height: calc(100% - 150px);
 }
   
 #chat-container #messageForm {
-    padding: 20px;
+    padding: 10px;
 }
  
 #chat-container ul li {
     line-height: 1.5rem;
-    padding: 10px 20px;
+    padding: 0px 20px;
     margin: 0;
     border-bottom: 1px solid #f4f4f4;
 }
@@ -95,7 +96,7 @@ html, body {
  
 #chat-container .event-message {
     width: 100%;
-    text-align: center;
+    text-align: right;
     clear: both;
 }
  
